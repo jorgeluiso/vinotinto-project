@@ -54,7 +54,11 @@ app.post("/webhook", (req, res) => {
     body.entry.forEach(function(entry) {
       // Gets the body of the webhook event
       let webhookEvent = entry.messaging[0];
+<<<<<<< HEAD
 
+=======
+      
+>>>>>>> 109417b4d0b5f3c1f0b170a074cd2ff8eb04ed26
       // ditch uninteresting events
       if ("read" in webhookEvent) {
         console.log("got a read");
@@ -68,24 +72,34 @@ app.post("/webhook", (req, res) => {
 
       // Get the sender PSID
       let senderPsid = webhookEvent.sender.id;
-      console.log("Sender PSID: " + senderPsid);
-      console.log("status of persons", persons);
-      console.log("have i seen the person", senderPsid in persons);
+      // console.log("Sender PSID: " + senderPsid);
+      // console.log("status of persons", persons);
+      // console.log("have i seen the person", senderPsid in persons);
 
-      // Check if this is the first time I'm seing this person
-      if (!(senderPsid in persons)) {
-        console.log("Have not seen this person before ", senderPsid);
-        GraphAPi.getPersonProfile(senderPsid).then(personProfile => {
-          person.setProfile(personProfile);
-          console.log("adding ", person.psid);
-          persons[senderPsid] = person;
-          let receiveMessage = new Receive(senderPsid, webhookEvent);
-          return receiveMessage.handleMessage();
-        })
-        .catch(err =>{
-          persons[senderPsid] = persons.setEmptyProfile(senderPsid);
-        });
-      }
+      // // Check if this is the first time I'm seing this person
+      // if (!(senderPsid in persons)) {
+      //   console.log("Have not seen this person before ", senderPsid);
+      //   GraphAPi.getPersonProfile(senderPsid).then(personProfile => {
+      //     person.setProfile(personProfile);
+      //     console.log("adding ", person.psid);
+      //     persons[senderPsid] = person;
+      //     let receiveMessage = new Receive(senderPsid, webhookEvent);
+      //     return receiveMessage.handleMessage();
+      //   })
+      //   .catch(err =>{
+      //     persons[senderPsid] = persons.setEmptyProfile(senderPsid);
+      //   });
+      // }
+      console.log('Sender PSID: ' + senderPsid);
+
+      // GraphAPi.getPersonProfile(senderPsid).then(personProfile => {
+      //   person.setProfile(personProfile);
+      //   console.log(person);
+
+      //   let receiveMessage = new Receive(senderPsid, webhookEvent);
+      //   return receiveMessage.handleMessage();
+      // });
+      
       let receiveMessage = new Receive(senderPsid, webhookEvent);
       return receiveMessage.handleMessage();
     });
